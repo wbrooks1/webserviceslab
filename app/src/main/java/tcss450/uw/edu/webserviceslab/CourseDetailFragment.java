@@ -4,6 +4,7 @@ package tcss450.uw.edu.webserviceslab;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,11 @@ public class CourseDetailFragment extends Fragment {
     private TextView mCourseShortDescTextView;
     private TextView mCourseLongDescTextView;
     private TextView mCoursePrereqsTextView;
-    public final static String COURSE_ITEM_SELECTED = "course_selected";
 
     public CourseDetailFragment() {
         // Required empty public constructor
     }
+    public final static String COURSE_ITEM_SELECTED = "course_selected";
 
     @Override
     public void onStart() {
@@ -37,6 +38,7 @@ public class CourseDetailFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             // Set article based on argument passed in
+            Log.i("CourseDetailFrag", "args not null" + args.toString());
             updateView((Course) args.getSerializable(COURSE_ITEM_SELECTED));
         }
     }
@@ -58,7 +60,8 @@ public class CourseDetailFragment extends Fragment {
 
     public void updateView(Course course) {
         if (course != null) {
-            mCourseIdTextView.setText(course.getmCourseId());
+            Log.i("CDF updateView", "course was not null");
+            mCourseIdTextView.setText(course.getCourseId());
             mCourseShortDescTextView.setText(course.getShortDescription());
             mCourseLongDescTextView.setText(course.getLongDescription());
             mCoursePrereqsTextView.setText(course.getPrereqs());

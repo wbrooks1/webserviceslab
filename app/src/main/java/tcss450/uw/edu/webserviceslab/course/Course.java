@@ -71,7 +71,7 @@ public class Course implements Serializable {
         this.mPrereqs = mPrereqs;
     }
 
-    public String getmCourseId() {
+    public String getCourseId() {
 
         return mCourseId;
     }

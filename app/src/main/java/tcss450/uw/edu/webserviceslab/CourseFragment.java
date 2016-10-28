@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import tcss450.uw.edu.webserviceslab.CourseFragment.OnListFragmentInteractionListener;
 import tcss450.uw.edu.webserviceslab.course.Course;
 
 /**
@@ -58,28 +59,7 @@ public class CourseFragment extends Fragment {
     }
 
 
-    protected void onPostExecute(String result) {
-        // Something wrong with the network or the URL.
-        if (result.startsWith("Unable to")) {
-            Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
 
-        List<Course> courseList = new ArrayList<Course>();
-        result = Course.parseCourseJSON(result, courseList);
-        // Something wrong with the JSON returned.
-        if (result != null) {
-            Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
-
-        // Everything is good, show the list of courses.
-        if (!courseList.isEmpty()) {
-            mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(courseList, mListener));
-        }
-    }
 
 
     @Override
@@ -176,6 +156,29 @@ public class CourseFragment extends Fragment {
                 }
             }
             return response;
+        }
+
+        protected void onPostExecute(String result) {
+            // Something wrong with the network or the URL.
+            if (result.startsWith("Unable to")) {
+                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            List<Course> courseList = new ArrayList<Course>();
+            result = Course.parseCourseJSON(result, courseList);
+            // Something wrong with the JSON returned.
+            if (result != null) {
+                Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_LONG)
+                        .show();
+                return;
+            }
+
+            // Everything is good, show the list of courses.
+            if (!courseList.isEmpty()) {
+                mRecyclerView.setAdapter(new MyCourseRecyclerViewAdapter(courseList, mListener));
+            }
         }
     }
 }
